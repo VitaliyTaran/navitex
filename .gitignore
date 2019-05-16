@@ -1,0 +1,16 @@
+# Outputs
+*.class
+target/
+*target*
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# IDEA Files
+.idea/
+*.iml
+
+# Logs
+*.log
