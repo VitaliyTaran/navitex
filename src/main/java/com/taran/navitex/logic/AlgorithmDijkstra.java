@@ -36,8 +36,8 @@ public class AlgorithmDijkstra {
         }
 
         List<Point> result = new ArrayList<>();
-        for (int i = 0; i < recoveredPath.length; i++) {
-            result.add(searchPointById(graph.getPoints(), recoveredPath[i]));
+        for (int value : recoveredPath) {
+            result.add(searchPointById(graph.getPoints(), value));
         }
         return result;
     }
@@ -48,12 +48,8 @@ public class AlgorithmDijkstra {
 
     private Point searchPointById(List<Point> points, int id) {
         Optional<Point> point = points.stream().filter(o -> o.getId() == id).findFirst();
-        if (point.isPresent()) {
-            return point.get();
-        } else {
-            // TODO: 5/16/2019 return exception
-            return null;
-        }
+        // TODO: 5/16/2019 return exception
+        return point.orElse(null);
     }
 
     private void init() {
