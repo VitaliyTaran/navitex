@@ -1,31 +1,45 @@
 package com.taran.navitex.logic;
 
 import com.taran.navitex.entity.*;
+import com.taran.navitex.exception.LogicAlgorithmException;
 
 import java.util.*;
 
 public class AlgorithmDijkstra {
+    private static final String SEARCHING_POINT_BY_ID_EXCEPTION_MESSAGE = "Point hasn't found into graph pointId = ";
     private final int INF = Integer.MAX_VALUE / 2; // "Бесконечность"
     private MultiList multiList; // описание графа
     private boolean[] used; // массив пометок
     private int[] prev; // массив предков
     private int[] dist; // массив расстояний
     private RMQ rmq; // RMQ
-    private int numberOfFirstPoint;
-    private int numberOfLastPoint;
-    private Graph graph;
+    private int numberOfFirstPoint;//номер первой вершины
+    private int numberOfLastPoint;//номер последней вершины
+    private Graph graph; //Граф точек и ребер
 
 
     public void execute(Graph graph, int numberOfFirstPoint, int numberOfLastPoint) {
         this.graph = graph;
-        init();
         this.numberOfFirstPoint = numberOfFirstPoint;
         this.numberOfLastPoint = numberOfLastPoint;
+
+        List<Point> vertexes = graph.getPoints();
+        List<Edge> edges = graph.getEdges();
+
+        int numberOfVertex = vertexes.size();// количество вершин
+        used = new boolean[numberOfVertex]; // массив пометок
+        prev = new int[numberOfVertex]; // массив предков
+        dist = new int[numberOfVertex]; // массив расстояний
+        rmq = new RMQ(numberOfVertex); // RMQ
+
+        prepareMultiList(numberOfVertex, edges);
+
+        Arrays.fill(prev, -1);
+        Arrays.fill(dist, INF);
         startAlgorithm();
     }
 
-    public List<Point> getRecoveredPath() {
-        /* Восстановление пути */
+    public List<Point> getRecoveredPath() throws LogicAlgorithmException {
         Stack<Integer> stack = new Stack<>();
         for (int v = numberOfLastPoint; v != -1; v = prev[v]) {
             stack.push(v);
@@ -46,26 +60,13 @@ public class AlgorithmDijkstra {
         return dist[numberOfLastPoint];
     }
 
-    private Point searchPointById(List<Point> points, int id) {
+    private Point searchPointById(List<Point> points, int id) throws LogicAlgorithmException {
         Optional<Point> point = points.stream().filter(o -> o.getId() == id).findFirst();
-        // TODO: 5/16/2019 return exception
-        return point.orElse(null);
-    }
-
-    private void init() {
-        List<Point> vertexes = graph.getPoints();
-        List<Edge> edges = graph.getEdges();
-
-        int numberOfVertex = vertexes.size();// количество вершин
-        used = new boolean[numberOfVertex]; // массив пометок
-        prev = new int[numberOfVertex]; // массив предков
-        dist = new int[numberOfVertex]; // массив расстояний
-        rmq = new RMQ(numberOfVertex); // RMQ
-
-        prepareMultiList(numberOfVertex, edges);
-
-        Arrays.fill(prev, -1);
-        Arrays.fill(dist, INF);
+        if (point.isPresent()) {
+            return point.get();
+        } else {
+            throw new LogicAlgorithmException(SEARCHING_POINT_BY_ID_EXCEPTION_MESSAGE + id);
+        }
     }
 
     private void prepareMultiList(int numberOfVertex, List<Edge> edges) {
