@@ -2,9 +2,7 @@ package com.taran.navitex.logic;
 
 import com.taran.navitex.entity.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class AlgorithmDijkstra {
     private final int INF = Integer.MAX_VALUE / 2; // "Бесконечность"
@@ -13,8 +11,52 @@ public class AlgorithmDijkstra {
     private int[] prev; // массив предков
     private int[] dist; // массив расстояний
     private RMQ rmq; // RMQ
+    private int numberOfFirstPoint;
+    private int numberOfLastPoint;
+    private Graph graph;
 
-    private void init(Graph graph) {
+
+    public void execute(Graph graph, int numberOfFirstPoint, int numberOfLastPoint) {
+        this.graph = graph;
+        init();
+        this.numberOfFirstPoint = numberOfFirstPoint;
+        this.numberOfLastPoint = numberOfLastPoint;
+        startAlgorithm();
+    }
+
+    public List<Point> getRecoveredPath() {
+        /* Восстановление пути */
+        Stack<Integer> stack = new Stack<>();
+        for (int v = numberOfLastPoint; v != -1; v = prev[v]) {
+            stack.push(v);
+        }
+        int[] recoveredPath = new int[stack.size()];
+        for (int i = 0; i < recoveredPath.length; i++) {
+            recoveredPath[i] = Integer.valueOf(stack.pop().toString()) + 1;
+        }
+
+        List<Point> result = new ArrayList<>();
+        for (int i = 0; i < recoveredPath.length; i++) {
+            result.add(searchPointById(graph.getPoints(), recoveredPath[i]));
+        }
+        return result;
+    }
+
+    public int getCost() {
+        return dist[numberOfLastPoint];
+    }
+
+    private Point searchPointById(List<Point> points, int id) {
+        Optional<Point> point = points.stream().filter(o -> o.getId() == id).findFirst();
+        if (point.isPresent()) {
+            return point.get();
+        } else {
+            // TODO: 5/16/2019 return exception
+            return null;
+        }
+    }
+
+    private void init() {
         List<Point> vertexes = graph.getPoints();
         List<Edge> edges = graph.getEdges();
 
@@ -30,13 +72,21 @@ public class AlgorithmDijkstra {
         Arrays.fill(dist, INF);
     }
 
+    private void prepareMultiList(int numberOfVertex, List<Edge> edges) {
+        multiList = new MultiList(numberOfVertex, edges.size());
+        edges.forEach(edge -> {
+            Point firstPoint = edge.getFirst();
+            Point secondPoint = edge.getSecond();
+            multiList.add(firstPoint.getId(), secondPoint.getId(), edge.getCost());
+        });
+    }
+
     /* Алгоритм Дейкстры за O(E log V) */
-    public void execute(Graph graph, int start, int end) {
-        init(graph);
-        rmq.set(start, dist[start] = 0);
+    private void startAlgorithm() {
+        rmq.set(numberOfFirstPoint, dist[numberOfFirstPoint] = 0);
         for (; ; ) {
             int v = rmq.minIndex(); // выбираем ближайшую вершину
-            if (v == -1 || v == end) break; // если она не найдена, или является конечной, то выходим
+            if (v == -1 || v == numberOfLastPoint) break; // если она не найдена, или является конечной, то выходим
             used[v] = true; // помечаем выбранную вершину
             rmq.set(v, INF); // и сбрасываем ее значение в RMQ
             for (int i = multiList.getHead()[v]; i != 0; i = multiList.getNext()[i]) { // проходим пр смежным вершинам
@@ -48,42 +98,5 @@ public class AlgorithmDijkstra {
                 }
             }
         }
-
-        /* Вывод результата */
-        printResult(start, end, dist);
-        printRecoveredPath(end);
-
     }
-
-    private MultiList prepareMultiList(int numberOfVertex, List<Edge> edges) {
-        multiList = new MultiList(numberOfVertex, edges.size());
-        edges.forEach(edge -> {
-            Point firstPoint = edge.getFirst();
-            Point secondPoint = edge.getSecond();
-            multiList.add(firstPoint.getId(), secondPoint.getId(), edge.getCost());
-        });
-        return multiList;
-    }
-
-    private int[] makePath(int end) {
-        /* Восстановление пути */
-        Stack<Integer> stack = new Stack<>();
-        for (int v = end; v != -1; v = prev[v]) {
-            stack.push(v);
-        }
-        int[] recoveredPath = new int[stack.size()];
-        for (int i = 0; i < recoveredPath.length; i++) {
-            recoveredPath[i] = Integer.valueOf(stack.pop().toString()) + 1;
-        }
-        return recoveredPath;
-    }
-
-    private void printRecoveredPath(int end) {
-        System.out.println("Кратчайший путь: " + Arrays.toString(makePath(end)));
-    }
-
-    private void printResult(int start, int end, int[] dist) {
-        System.out.printf("Кратчайшее расстояние между %d и %d = %d%n", start + 1, end + 1, dist[end]);
-    }
-
 }
