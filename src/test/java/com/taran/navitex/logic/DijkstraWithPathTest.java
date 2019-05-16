@@ -3,6 +3,7 @@ package com.taran.navitex.logic;
 import com.taran.navitex.entity.Edge;
 import com.taran.navitex.entity.Graph;
 import com.taran.navitex.entity.Point;
+import com.taran.navitex.exception.LogicAlgorithmException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 public class DijkstraWithPathTest {
 
     @Test
-    public void dijkstraRMQ() {
+    public void dijkstraRMQ() throws LogicAlgorithmException {
         List<Edge> edgeList = new ArrayList<>();
         List<Point> pointList = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
