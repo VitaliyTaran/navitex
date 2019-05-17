@@ -1,22 +1,17 @@
 package com.taran.navitex.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.List;
 
+@AllArgsConstructor
+@Getter
+@ToString
 public class Graph {
-    private final List<Point> points;
+    private final List<Sensor> points;
     private final List<Edge> edges;
-
-
-    public Graph(List<Point> points, List<Edge> edges) {
-        this.points = points;
-        this.edges = edges;
-    }
-
-    public List<Point> getPoints() {
-        return points;
-    }
-
-    public List<Edge> getEdges() {
-        return edges;
-    }
 }
+
+
