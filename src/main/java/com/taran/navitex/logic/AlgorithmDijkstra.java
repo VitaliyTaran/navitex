@@ -23,7 +23,7 @@ public class AlgorithmDijkstra {
         this.numberOfFirstPoint = numberOfFirstPoint;
         this.numberOfLastPoint = numberOfLastPoint;
 
-        List<Point> vertexes = graph.getPoints();
+        List<Sensor> vertexes = graph.getPoints();
         List<Edge> edges = graph.getEdges();
 
         int numberOfVertex = vertexes.size();// количество вершин
@@ -39,7 +39,7 @@ public class AlgorithmDijkstra {
         startAlgorithm();
     }
 
-    public List<Point> getRecoveredPath() throws LogicAlgorithmException {
+    public List<Sensor> getRecoveredPath() throws LogicAlgorithmException {
         Stack<Integer> stack = new Stack<>();
         for (int v = numberOfLastPoint; v != -1; v = prev[v]) {
             stack.push(v);
@@ -49,7 +49,7 @@ public class AlgorithmDijkstra {
             recoveredPath[i] = Integer.valueOf(stack.pop().toString()) + 1;
         }
 
-        List<Point> result = new ArrayList<>();
+        List<Sensor> result = new ArrayList<>();
         for (int value : recoveredPath) {
             result.add(searchPointById(graph.getPoints(), value));
         }
@@ -60,8 +60,8 @@ public class AlgorithmDijkstra {
         return dist[numberOfLastPoint];
     }
 
-    private Point searchPointById(List<Point> points, int id) throws LogicAlgorithmException {
-        Optional<Point> point = points.stream().filter(o -> o.getId() == id).findFirst();
+    private Sensor searchPointById(List<Sensor> points, int id) throws LogicAlgorithmException {
+        Optional<Sensor> point = points.stream().filter(o -> o.getId() == id).findFirst();
         if (point.isPresent()) {
             return point.get();
         } else {
@@ -72,8 +72,8 @@ public class AlgorithmDijkstra {
     private void prepareMultiList(int numberOfVertex, List<Edge> edges) {
         multiList = new MultiList(numberOfVertex, edges.size());
         edges.forEach(edge -> {
-            Point firstPoint = edge.getFirst();
-            Point secondPoint = edge.getSecond();
+            Sensor firstPoint = edge.getFirst();
+            Sensor secondPoint = edge.getSecond();
             multiList.add(firstPoint.getId(), secondPoint.getId(), edge.getCost());
         });
     }
