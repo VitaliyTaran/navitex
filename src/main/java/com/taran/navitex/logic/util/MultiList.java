@@ -1,4 +1,4 @@
-package com.taran.navitex.entity;
+package com.taran.navitex.logic.util;
 
 public class MultiList {
     private int[] head;
