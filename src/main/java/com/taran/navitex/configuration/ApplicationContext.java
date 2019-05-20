@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -18,13 +19,16 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:postgre_db.properties")
-@ComponentScan(basePackages = {})
+@PropertySource("classpath:db.properties")
+@ComponentScan(basePackages = {"com.taran.navitex.repository", "com.taran.navitex.service", "com.taran.navitex.configuration"})
 public class ApplicationContext {
     private Environment environment;
 
+    public ApplicationContext() {
+    }
+
     @Autowired
-    public void setEnvironment(Environment environment) {
+    public ApplicationContext(Environment environment) {
         this.environment = environment;
     }
 
@@ -48,12 +52,16 @@ public class ApplicationContext {
         properties.put("javax.persistence.jdbc.password", environment.getRequiredProperty("jdbc.password"));
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("com.epam.travelagency.entity");
+        em.setPackagesToScan("com.taran.navitex.entity");
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(properties);
         return em;
     }
 
+    @Bean
+    public JpaTransactionManager getTransactionManager() {
+        return new JpaTransactionManager(entityManager().getObject());
+    }
 
 }
