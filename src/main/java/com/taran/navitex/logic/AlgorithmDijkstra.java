@@ -3,6 +3,7 @@ package com.taran.navitex.logic;
 import com.taran.navitex.entity.Edge;
 import com.taran.navitex.entity.Graph;
 import com.taran.navitex.entity.Sensor;
+import com.taran.navitex.entity.TypeAlgorithm;
 import com.taran.navitex.exception.NavitexLogicAlgorithmException;
 import com.taran.navitex.logic.util.MultiList;
 import com.taran.navitex.logic.util.RMQ;
@@ -20,7 +21,11 @@ public class AlgorithmDijkstra {
     private int numberOfFirstPoint;//номер первой вершины
     private int numberOfLastPoint;//номер последней вершины
     private Graph graph; //Граф точек и ребер
+    private TypeAlgorithm type;
 
+    public AlgorithmDijkstra(TypeAlgorithm type) {
+        this.type = type;
+    }
 
     public void execute(Graph graph, Sensor first, Sensor second) {
         this.graph = graph;
@@ -75,11 +80,29 @@ public class AlgorithmDijkstra {
 
     private void prepareMultiList(int numberOfVertex, List<Edge> edges) {
         multiList = new MultiList(numberOfVertex, edges.size());
-        edges.forEach(edge -> {
-            Sensor firstPoint = edge.getFirst();
-            Sensor secondPoint = edge.getSecond();
-            multiList.add(firstPoint.getId(), secondPoint.getId(), edge.getCost());
-        });
+        switch (type) {
+            case BY_COST:
+                edges.forEach(edge -> {
+                    Sensor firstPoint = edge.getFirst();
+                    Sensor secondPoint = edge.getSecond();
+                    multiList.add(firstPoint.getId(), secondPoint.getId(), edge.getCost());
+                });
+                break;
+            case BY_DISTANCE:
+                edges.forEach(edge -> {
+                    Sensor firstPoint = edge.getFirst();
+                    Sensor secondPoint = edge.getSecond();
+                    multiList.add(firstPoint.getId(), secondPoint.getId(), (int) edge.getDistance());
+                });
+                break;
+            case BY_MARK:
+                edges.forEach(edge -> {
+                    Sensor firstPoint = edge.getFirst();
+                    Sensor secondPoint = edge.getSecond();
+                    multiList.add(firstPoint.getId(), secondPoint.getId(), (int) edge.getAverageMark());
+                });
+                break;
+        }
     }
 
     /* Алгоритм Дейкстры за O(E log V) */
