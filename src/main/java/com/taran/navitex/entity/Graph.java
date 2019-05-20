@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @ToString
 public class Graph {
-    private final List<Sensor> points;
+    private final List<Sensor> sensors;
     private final List<Edge> edges;
 }
 
