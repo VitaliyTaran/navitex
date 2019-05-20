@@ -13,7 +13,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlgorithmDijkstraByCostTest {
+public class AlgorithmDijkstraByDistance {
     private Graph graph;
     private AlgorithmDijkstra algorithm;
 
@@ -21,30 +21,28 @@ public class AlgorithmDijkstraByCostTest {
     public void setUp() {
         TestCollections testCollections = new TestCollections();
         graph = testCollections.getGraph();
-        algorithm = new AlgorithmDijkstra(TypeAlgorithm.BY_COST);
+        algorithm = new AlgorithmDijkstra(TypeAlgorithm.BY_DISTANCE);
     }
 
     @Test
     public void execute() throws NavitexLogicAlgorithmException {
-        List<Sensor> actualWay = new ArrayList<>();
-        actualWay.add(graph.getSensors().get(1));
-        actualWay.add(graph.getSensors().get(2));
-        actualWay.add(graph.getSensors().get(3));
-        algorithm.execute(graph, graph.getSensors().get(1), graph.getSensors().get(3));
-        Assert.assertEquals(algorithm.calculatePath(), actualWay);
+        List<Sensor> actual = new ArrayList<>();
+        actual.add(graph.getSensors().get(0));
+        actual.add(graph.getSensors().get(5));
+        actual.add(graph.getSensors().get(2));
+        algorithm.execute(graph, graph.getSensors().get(0), graph.getSensors().get(2));
+        Assert.assertEquals(algorithm.calculatePath(), actual);
+
     }
 
     @Test
     public void calculatePath() throws NavitexLogicAlgorithmException {
-        List<Sensor> actualWay = new ArrayList<>();
-        actualWay.add(graph.getSensors().get(0));
-        actualWay.add(graph.getSensors().get(5));
-        actualWay.add(graph.getSensors().get(4));
-        actualWay.add(graph.getSensors().get(3));
-        Sensor first = graph.getSensors().get(0);
-        Sensor second = graph.getSensors().get(3);
-        algorithm.execute(graph, first, second);
-        Assert.assertEquals(algorithm.calculatePath(), actualWay);
+        List<Sensor> actual = new ArrayList<>();
+        actual.add(graph.getSensors().get(0));
+        actual.add(graph.getSensors().get(5));
+        actual.add(graph.getSensors().get(4));
+        algorithm.execute(graph, graph.getSensors().get(0), graph.getSensors().get(4));
+        Assert.assertEquals(algorithm.calculatePath(), actual);
     }
 
     @Test
