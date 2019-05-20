@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -21,12 +20,13 @@ public class Sensor {
     @Column(name = "name")
     private String name;
     @Column(name = "longitude")
-    private BigDecimal longitude;
+    private Double longitude;
     @Column(name = "latitude")
-    private BigDecimal latitude;
+    private Double latitude;
 
-    public Sensor(int id, String name) {
-        this.id = id;
+    public Sensor(String name, Double longitude, Double latitude) {
         this.name = name;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 }
