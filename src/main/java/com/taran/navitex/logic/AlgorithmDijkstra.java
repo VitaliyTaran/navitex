@@ -1,7 +1,7 @@
 package com.taran.navitex.logic;
 
 import com.taran.navitex.entity.*;
-import com.taran.navitex.exception.LogicAlgorithmException;
+import com.taran.navitex.exception.NavitexLogicAlgorithmException;
 import com.taran.navitex.logic.util.MultiList;
 import com.taran.navitex.logic.util.RMQ;
 
@@ -41,7 +41,7 @@ public class AlgorithmDijkstra {
         startAlgorithm();
     }
 
-    public List<Sensor> getRecoveredPath() throws LogicAlgorithmException {
+    public List<Sensor> getRecoveredPath() throws NavitexLogicAlgorithmException {
         Stack<Integer> stack = new Stack<>();
         for (int v = numberOfLastPoint; v != -1; v = prev[v]) {
             stack.push(v);
@@ -62,12 +62,12 @@ public class AlgorithmDijkstra {
         return dist[numberOfLastPoint];
     }
 
-    private Sensor searchPointById(List<Sensor> points, int id) throws LogicAlgorithmException {
+    private Sensor searchPointById(List<Sensor> points, int id) throws NavitexLogicAlgorithmException {
         Optional<Sensor> point = points.stream().filter(o -> o.getId() == id).findFirst();
         if (point.isPresent()) {
             return point.get();
         } else {
-            throw new LogicAlgorithmException(SEARCHING_POINT_BY_ID_EXCEPTION_MESSAGE + id);
+            throw new NavitexLogicAlgorithmException(SEARCHING_POINT_BY_ID_EXCEPTION_MESSAGE + id);
         }
     }
 
