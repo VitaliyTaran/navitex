@@ -37,7 +37,7 @@ public class Edge {
     public Edge(Sensor first, Sensor second) {
         this.first = first;
         this.second = second;
-        this.distance = CoordinateCalculator.distIntoMeters(first, second);
+        this.distance = CoordinateCalculator.distance(first, second);
         this.averageMark = (first.getMark() + second.getMark()) / 2;
         this.cost = (int) (distance * averageMark);
     }
@@ -46,7 +46,7 @@ public class Edge {
         this.id = id;
         this.first = first;
         this.second = second;
-        this.distance = CoordinateCalculator.distIntoMeters(first, second);
+        this.distance = CoordinateCalculator.distance(first, second);
         this.averageMark = (first.getMark() + second.getMark()) / 2;
         this.cost = (int) (distance * averageMark);
     }
