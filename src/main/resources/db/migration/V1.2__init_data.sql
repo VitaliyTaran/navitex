@@ -1,8 +1,9 @@
-insert into sensor (name) values('1');
-insert into sensor (name) values('2');
-insert into sensor (name) values('3');
-insert into sensor (name) values('4');
-insert into sensor (name) values('5');
+insert into sensor (name,latitude,longitude) values('1','72.14034','169.67485');
+insert into sensor (name,latitude,longitude) values('2','-56.73142','178.15685');
+insert into sensor (name,latitude,longitude) values('3','-37.46646','-88.29196');
+insert into sensor (name,latitude,longitude) values('4','27.52873','-67.69225');
+insert into sensor (name,latitude,longitude) values('5','71.54185','-79.73339');
+
 
 insert into edge(first_sensor_id,second_sensor_id,cost) values (1,2,1);
 insert into edge(first_sensor_id,second_sensor_id,cost) values (2,1,1);
