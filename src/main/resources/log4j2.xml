@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="file.appender">File</Property>
+        <Property name="sql.file.appender">Sql</Property>
+        <Property name="file.filename">log/log.log</Property>
+        <Property name="sql.filename">log/sql_log.log</Property>
+    </Properties>
+
+    <Appenders>
+        <File name="${file.appender}" fileName="${file.filename}">
+            <PatternLayout pattern="%d{MM-dd-yy HH:mm:ss:SSS} [%t] %-5level %C{10} - %msg%n"/>
+        </File>
+
+        <File name="${sql.file.appender}" fileName="${sql.filename}">
+            <PatternLayout pattern="%d{MM-dd-yy HH:mm:ss:SSS} [%t] %-5level %C{10} - %msg%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="${file.appender}"/>
+        </Root>
+
+        <Logger name="org.hibernate.SQL" level="DEBUG">
+            <appender-ref ref="${sql.file.appender}"/>
+        </Logger>
+
+        <Logger name="org.hibernate.type.descriptor.sql" level="TRACE">
+            <appender-ref ref="${sql.file.appender}"/>
+        </Logger>
+    </Loggers>
+</Configuration>
