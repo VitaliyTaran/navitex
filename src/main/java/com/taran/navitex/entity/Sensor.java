@@ -23,10 +23,19 @@ public class Sensor {
     private Double longitude;
     @Column(name = "latitude")
     private Double latitude;
+    @Column(name = "mark")
+    private Integer mark;
 
     public Sensor(String name, Double longitude, Double latitude) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
+    }
+
+    public Sensor(String name, Double longitude, Double latitude, int mark) {
+        this.name = name;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.mark = mark;
     }
 }
