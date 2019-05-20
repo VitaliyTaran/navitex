@@ -48,9 +48,8 @@ public class SensorRepositoryTest {
 
     @Test
     public void create() {
-
         repository.create(testSensor);
-        testSensor.setId(7);
+        testSensor.setId(8);
         sensorList.add(testSensor);
 
         List<Sensor> expected = repository.findAll();
@@ -71,8 +70,8 @@ public class SensorRepositoryTest {
 
     @Test
     public void remove() {
-        repository.remove(6);
-        sensorList.remove(5);
+        repository.remove(7);
+        sensorList.remove(6);
 
         List<Sensor> expected = repository.findAll();
         Assert.assertEquals(expected, sensorList);

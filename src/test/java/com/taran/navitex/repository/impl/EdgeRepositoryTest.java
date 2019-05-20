@@ -32,7 +32,7 @@ public class EdgeRepositoryTest {
         TestCollections testCollections = new TestCollections();
         edgeList = testCollections.getEdgeList();
         sensorList = testCollections.getSensorList();
-        testEdge = new Edge(sensorList.get(5), sensorList.get(4), 1);
+        testEdge = new Edge(sensorList.get(6), sensorList.get(0));
     }
 
     @Test
@@ -49,13 +49,9 @@ public class EdgeRepositoryTest {
     }
 
     @Test
-    public void create() {
+    public void create() { ;
         repository.create(testEdge);
-        testEdge.setId(11);
-        testEdge.setFirst(sensorList.get(5));
-        testEdge.setSecond(sensorList.get(4));
         edgeList.add(testEdge);
-
         List<Edge> expected = repository.findAll();
         Assert.assertEquals(expected, edgeList);
     }
