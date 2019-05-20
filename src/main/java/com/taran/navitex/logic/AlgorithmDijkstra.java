@@ -32,7 +32,7 @@ public class AlgorithmDijkstra {
         this.numberOfFirstPoint = first.getId();
         this.numberOfLastPoint = second.getId();
 
-        List<Sensor> vertexes = graph.getPoints();
+        List<Sensor> vertexes = graph.getSensors();
         List<Edge> edges = graph.getEdges();
 
         int numberOfVertex = vertexes.size();// количество вершин
@@ -60,7 +60,7 @@ public class AlgorithmDijkstra {
 
         List<Sensor> result = new ArrayList<>();
         for (int value : recoveredPath) {
-            result.add(searchPointById(graph.getPoints(), value));
+            result.add(searchPointById(graph.getSensors(), value));
         }
         return result;
     }
