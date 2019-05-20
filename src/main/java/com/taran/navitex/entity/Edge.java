@@ -1,16 +1,31 @@
 package com.taran.navitex.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
+import javax.persistence.*;
+
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode
 @ToString
+@Entity
+@Table(name = "aass")
 public class Edge {
-    private final Sensor first;
-    private final Sensor second;
-    private final int cost;
+    @Id
+    @Column(name = "id")
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "first_sensor_id")
+    private Sensor first;
+
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "second_sensor_id")
+    private Sensor second;
+
+    @Column(name = "cost")
+    private int cost;
 }
