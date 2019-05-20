@@ -5,7 +5,7 @@ import com.taran.navitex.entity.Sensor;
 public class CoordinateCalculator {
     private static final int AVERAGE_EARTH_RADIUS = 6371000;
 
-    public static double distIntoMeters(Sensor first, Sensor second) {
+    public static double distance(Sensor first, Sensor second) {
         double dLat = Math.toRadians(second.getLatitude() - first.getLatitude());
         double dLng = Math.toRadians(second.getLongitude() - first.getLongitude());
         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
