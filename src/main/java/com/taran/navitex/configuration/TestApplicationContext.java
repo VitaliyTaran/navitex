@@ -20,7 +20,7 @@ public class TestApplicationContext extends ApplicationContext {
         embeddedDatabaseBuilder.generateUniqueName(true);
         embeddedDatabaseBuilder.setScriptEncoding("UTF-8");
         embeddedDatabaseBuilder.addScript("classpath:db/migration/V1.1___creation_db.sql");
-        embeddedDatabaseBuilder.addScript("classpath:db/migration/V1.2__init_data.sql");
+        embeddedDatabaseBuilder.addScript("classpath:db/test/V1.2__init_test_data.sql");
         return embeddedDatabaseBuilder.build();
     }
 }
