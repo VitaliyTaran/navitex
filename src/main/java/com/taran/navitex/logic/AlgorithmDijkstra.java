@@ -1,6 +1,8 @@
 package com.taran.navitex.logic;
 
-import com.taran.navitex.entity.*;
+import com.taran.navitex.entity.Edge;
+import com.taran.navitex.entity.Graph;
+import com.taran.navitex.entity.Sensor;
 import com.taran.navitex.exception.NavitexLogicAlgorithmException;
 import com.taran.navitex.logic.util.MultiList;
 import com.taran.navitex.logic.util.RMQ;
@@ -20,10 +22,10 @@ public class AlgorithmDijkstra {
     private Graph graph; //Граф точек и ребер
 
 
-    public void execute(Graph graph, int numberOfFirstPoint, int numberOfLastPoint) {
+    public void execute(Graph graph, Sensor first, Sensor second) {
         this.graph = graph;
-        this.numberOfFirstPoint = numberOfFirstPoint;
-        this.numberOfLastPoint = numberOfLastPoint;
+        this.numberOfFirstPoint = first.getId();
+        this.numberOfLastPoint = second.getId();
 
         List<Sensor> vertexes = graph.getPoints();
         List<Edge> edges = graph.getEdges();
@@ -41,14 +43,14 @@ public class AlgorithmDijkstra {
         startAlgorithm();
     }
 
-    public List<Sensor> getRecoveredPath() throws NavitexLogicAlgorithmException {
+    public List<Sensor> calculatePath() throws NavitexLogicAlgorithmException {
         Stack<Integer> stack = new Stack<>();
         for (int v = numberOfLastPoint; v != -1; v = prev[v]) {
             stack.push(v);
         }
         int[] recoveredPath = new int[stack.size()];
         for (int i = 0; i < recoveredPath.length; i++) {
-            recoveredPath[i] = Integer.valueOf(stack.pop().toString()) + 1;
+            recoveredPath[i] = Integer.valueOf(stack.pop().toString());
         }
 
         List<Sensor> result = new ArrayList<>();
@@ -58,7 +60,7 @@ public class AlgorithmDijkstra {
         return result;
     }
 
-    public int getCost() {
+    public int calculateCost() {
         return dist[numberOfLastPoint];
     }
 
