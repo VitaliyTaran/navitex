@@ -3,6 +3,7 @@ package com.taran.navitex.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,10 +11,11 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "aass")
+@Table(name = "edge")
 public class Edge {
+    @NotNull
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY,
@@ -28,4 +30,10 @@ public class Edge {
 
     @Column(name = "cost")
     private int cost;
+
+    public Edge(Sensor first, Sensor second, int cost) {
+        this.first = first;
+        this.second = second;
+        this.cost = cost;
+    }
 }
