@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public class SensorRepositoryImpl implements SensorRepository {
-    private static final String DELETE_SENSOR_SQL = "DELETE FROM sensor where id=?";
+    private static final String DELETE_SENSOR_SQL = "DELETE FROM sensor where id = ?";
     private static final String FIND_ALL_SENSOR_SQL = "SELECT * FROM sensor";
     private static final String FIND_SENSOR_SQL = "SELECT * FROM sensor where id = ?";
     @PersistenceContext
@@ -23,7 +23,7 @@ public class SensorRepositoryImpl implements SensorRepository {
         entityManager.joinTransaction();
         Query query = entityManager.createNativeQuery(FIND_SENSOR_SQL, Sensor.class);
         query.setParameter(1, id);
-        return Optional.of((Sensor) query.getResultList().get(0));
+        return Optional.of((Sensor) query.getSingleResult());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SensorRepositoryImpl implements SensorRepository {
     @Override
     public boolean remove(long id) {
         entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery(DELETE_SENSOR_SQL, Sensor.class);
+        Query query = entityManager.createNativeQuery(DELETE_SENSOR_SQL);
         query.setParameter(1, id);
         return query.executeUpdate() == 1;
     }
