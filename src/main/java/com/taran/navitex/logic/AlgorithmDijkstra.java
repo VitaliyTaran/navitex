@@ -85,21 +85,21 @@ public class AlgorithmDijkstra {
                 edges.forEach(edge -> {
                     Sensor firstPoint = edge.getFirst();
                     Sensor secondPoint = edge.getSecond();
-                    multiList.add(firstPoint.getId(), secondPoint.getId(), edge.getCost());
+                    multiList.add(firstPoint.getId(), secondPoint.getId(), (int) (CoordinateCalculator.distance(firstPoint, secondPoint) * ((SensorDataAnalyzer.generateMark(firstPoint) + SensorDataAnalyzer.generateMark(secondPoint)) / 2)));
                 });
                 break;
             case BY_DISTANCE:
                 edges.forEach(edge -> {
                     Sensor firstPoint = edge.getFirst();
                     Sensor secondPoint = edge.getSecond();
-                    multiList.add(firstPoint.getId(), secondPoint.getId(), (int) edge.getDistance());
+                    multiList.add(firstPoint.getId(), secondPoint.getId(), (int) CoordinateCalculator.distance(firstPoint, secondPoint));
                 });
                 break;
             case BY_MARK:
                 edges.forEach(edge -> {
                     Sensor firstPoint = edge.getFirst();
                     Sensor secondPoint = edge.getSecond();
-                    multiList.add(firstPoint.getId(), secondPoint.getId(), (int) edge.getAverageMark());
+                    multiList.add(firstPoint.getId(), secondPoint.getId(), ((SensorDataAnalyzer.generateMark(firstPoint) + SensorDataAnalyzer.generateMark(secondPoint)) / 2));
                 });
                 break;
         }
