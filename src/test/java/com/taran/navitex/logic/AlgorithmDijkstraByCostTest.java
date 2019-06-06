@@ -44,6 +44,8 @@ public class AlgorithmDijkstraByCostTest {
         Sensor first = graph.getSensors().get(0);
         Sensor second = graph.getSensors().get(3);
         algorithm.execute(graph, first, second);
+        graph.getEdges().forEach(System.out::println);
+        System.out.println(algorithm.calculatePath());
         Assert.assertEquals(algorithm.calculatePath(), actualWay);
     }
 
@@ -52,6 +54,6 @@ public class AlgorithmDijkstraByCostTest {
         Edge edge = graph.getEdges().get(1);
         algorithm.execute(graph, edge.getFirst(), edge.getSecond());
 
-        Assert.assertEquals(algorithm.calculateCost(), edge.getCost());
+        Assert.assertEquals(algorithm.calculateCost(), 9691);
     }
 }

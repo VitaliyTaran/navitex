@@ -31,10 +31,18 @@ public class Sensor {
     @PrimaryKeyJoinColumn
     private SensorDescription description;
 
-    public Sensor(String name, Double longitude, Double latitude, SensorDescription description) {
+    public Sensor(int id, String name, Double longitude, Double latitude) {
+        this.id = id;
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.description = description;
     }
+
+    public Sensor(String name, Double longitude, Double latitude) {
+        this.name = name;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+
 }

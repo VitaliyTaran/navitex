@@ -9,8 +9,8 @@ public class CoordinateCalculatorTest {
 
     @Test
     public void calculateDistance() {
-        Sensor first = new Sensor("Западная точка на мкаде Минска", 53.910498, 27.408334);
-        Sensor second = new Sensor("Восточная точка на мкаде Минска", 53.906579, 27.688398);
+        Sensor first = new Sensor(1, "Западная точка на мкаде Минска", 53.910498, 27.408334);
+        Sensor second = new Sensor(2, "Восточная точка на мкаде Минска", 53.906579, 27.688398);
         Assert.assertEquals(MINSK_DIAMETER, CoordinateCalculator.distance(first, second), 0.0);
     }
 }

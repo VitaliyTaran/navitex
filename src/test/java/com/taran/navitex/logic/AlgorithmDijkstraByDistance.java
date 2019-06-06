@@ -50,6 +50,6 @@ public class AlgorithmDijkstraByDistance {
         Edge edge = graph.getEdges().get(1);
         algorithm.execute(graph, edge.getFirst(), edge.getSecond());
 
-        Assert.assertEquals(algorithm.calculateCost(), edge.getCost());
+        Assert.assertEquals(algorithm.calculateCost(), 1384);
     }
 }

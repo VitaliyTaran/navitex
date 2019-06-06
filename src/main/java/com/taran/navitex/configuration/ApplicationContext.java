@@ -20,7 +20,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
-@ComponentScan(basePackages = {"com.taran.navitex.repository", "com.taran.navitex.service", "com.taran.navitex.configuration"})
+@ComponentScan(basePackages = {"com.taran.navitex.repository", "com.taran.navitex.service" })
 public class ApplicationContext {
     private Environment environment;
 

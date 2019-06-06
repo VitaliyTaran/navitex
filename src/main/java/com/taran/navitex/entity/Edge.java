@@ -18,11 +18,11 @@ public class Edge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "first_sensor_id")
     private Sensor first;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "second_sensor_id")
     private Sensor second;
 

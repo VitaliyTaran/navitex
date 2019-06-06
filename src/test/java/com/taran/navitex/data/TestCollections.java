@@ -3,7 +3,9 @@ package com.taran.navitex.data;
 import com.taran.navitex.entity.Edge;
 import com.taran.navitex.entity.Graph;
 import com.taran.navitex.entity.Sensor;
+import com.taran.navitex.entity.SensorDescription;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,13 +38,13 @@ public class TestCollections {
 
     private void initSensorList() {
         sensorList = new ArrayList<>();
-        sensorList.add(new Sensor(1, "Академия Связи", 53.924594, 27.666809, 1));
-        sensorList.add(new Sensor(2, "ст.м Борисовский Тракт", 53.938628, 27.666080, 1));
-        sensorList.add(new Sensor(3, "ст.м Восток", 53.934525, 27.651063, 1));
-        sensorList.add(new Sensor(4, "мост ул Филимонова и пр. Независимости", 53.931015, 27.638782, 1));
-        sensorList.add(new Sensor(5, "ул Ф.Скорины и Филимонова", 53.929377, 27.639395, 1));
-        sensorList.add(new Sensor(6, "ул Ф.Скорины проезд Дачный", 53.926973, 27.655037, 1));
-        sensorList.add(new Sensor(7, "БНТУ к20", 53.931090, 27.668435, 1));
+        sensorList.add(new Sensor(1, "Академия Связи", 53.924594, 27.666809,new SensorDescription(1,9,1,1,1,1,1,1,1,LocalDate.of(2018,12,12))));
+        sensorList.add(new Sensor(2, "ст.м Борисовский Тракт", 53.938628, 27.666080, new SensorDescription(2,1,1,1,2000,1,1,1,1,LocalDate.of(2018,12,12))));
+        sensorList.add(new Sensor(3, "ст.м Восток", 53.934525, 27.651063, new SensorDescription(3,1,1,1,1,1,1,1,1,LocalDate.of(2018,12,12))));
+        sensorList.add(new Sensor(4, "мост ул Филимонова и пр. Независимости", 53.931015, 27.638782, new SensorDescription(4,1,1000,1,1,1,1,1,1,LocalDate.of(2018,12,12))));
+        sensorList.add(new Sensor(5, "ул Ф.Скорины и Филимонова", 53.929377, 27.639395, new SensorDescription(5,1,1,1,1,1,1,1,1,LocalDate.of(2018,12,12))));
+        sensorList.add(new Sensor(6, "ул Ф.Скорины проезд Дачный", 53.926973, 27.655037, new SensorDescription(6,1,1,1,1,3500,1,1,1,LocalDate.of(2018,12,12))));
+        sensorList.add(new Sensor(7, "БНТУ к20", 53.931090, 27.668435, new SensorDescription(7,1,1,1,1,1,1,1,1,LocalDate.of(2018,12,12))));
     }
 
     private void initEdgeList() {

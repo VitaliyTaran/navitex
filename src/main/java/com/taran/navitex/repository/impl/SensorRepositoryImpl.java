@@ -20,7 +20,7 @@ public class SensorRepositoryImpl implements SensorRepository {
 
     @Override
     public Optional<Sensor> find(long id) {
-        entityManager.joinTransaction();
+//        entityManager.joinTransaction();
         Query query = entityManager.createNativeQuery(FIND_SENSOR_SQL, Sensor.class);
         query.setParameter(1, id);
         return Optional.of((Sensor) query.getSingleResult());
@@ -28,7 +28,7 @@ public class SensorRepositoryImpl implements SensorRepository {
 
     @Override
     public List<Sensor> findAll() {
-        entityManager.joinTransaction();
+//        entityManager.joinTransaction();
         Query query = entityManager.createNativeQuery(FIND_ALL_SENSOR_SQL, Sensor.class);
         return query.getResultList();
     }
@@ -50,9 +50,7 @@ public class SensorRepositoryImpl implements SensorRepository {
 
     @Override
     public boolean remove(long id) {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery(DELETE_SENSOR_SQL);
-        query.setParameter(1, id);
-        return query.executeUpdate() == 1;
+        entityManager.remove(find(id).get());
+        return true;
     }
 }

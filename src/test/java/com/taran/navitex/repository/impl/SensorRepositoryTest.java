@@ -32,7 +32,6 @@ public class SensorRepositoryTest {
         testSensor = new Sensor("7", 75.7575, 54.5454);
     }
 
-
     @Test
     public void find() {
         Sensor expected = repository.find(1).get();
@@ -49,24 +48,12 @@ public class SensorRepositoryTest {
     @Test
     public void create() {
         repository.create(testSensor);
-        testSensor.setId(8);
         sensorList.add(testSensor);
 
         List<Sensor> expected = repository.findAll();
         Assert.assertEquals(expected, sensorList);
     }
 
-    @Test
-    public void update() {
-        testSensor.setId(5);
-        testSensor.setName("5");
-        sensorList.set(4, testSensor);
-
-        repository.update(testSensor);
-
-        List<Sensor> expected = repository.findAll();
-        Assert.assertEquals(expected, sensorList);
-    }
 
     @Test
     public void remove() {
@@ -76,6 +63,4 @@ public class SensorRepositoryTest {
         List<Sensor> expected = repository.findAll();
         Assert.assertEquals(expected, sensorList);
     }
-
-
 }
