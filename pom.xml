@@ -11,7 +11,7 @@
     <name>navitex</name>
 
     <properties>
-        <spring.version>5.0.4.RELEASE</spring.version>
+        <spring.version>5.5.7</spring.version>
         <lombok.version>1.18.6</lombok.version>
         <junit.version>4.12</junit.version>
         <google-maps-api.version>0.1.1</google-maps-api.version>
